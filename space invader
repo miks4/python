@@ -1,0 +1,64 @@
+import pygame
+import os.path
+import random
+#inicijalizacija pygame-a
+pygame.init()
+
+screen = pygame.display.set_mode((800,600))#x i y osa
+myfont = pygame.font.SysFont("Arial", 60,)
+label = myfont.render("hello world" ,1, (255,255,0))#rgb
+clock = pygame.time.Clock()
+FPS = 30
+
+pygame.display.set_caption("space invader")
+image = pygame.image.load('transportation (2).png')
+pygame.display.set_icon(image)
+
+playerImg = pygame.image.load('game.png')
+playerX = 370
+playerY = 480
+playerX_Change = 0
+
+enemyImg = pygame.image.load('signs.png')
+eenemyX = random.randint(0,736)
+enemyY = random.randint(50,150)
+
+enemyX_Change = 0
+
+def player(x,y):
+    screen.blit(playerImg,(x,y))
+
+def enemy(x,y):
+    screen.blit(enemyImg,(x,y))
+running = True
+while running:
+    screen.fill((0,0,0))
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    
+        #keyboard
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                playerX_Change = -4
+            if event.key == pygame.K_RIGHT:
+                playerX_Change = 4
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_RIGHT:
+                playerX_Change = -4
+            elif event.key == pygame.K_LEFT:
+                playerX_Change = 4
+            else:
+                playerX_Change = 0
+            
+
+    playerX += playerX_Change 
+    if playerX <= 0:
+        playerX = 0
+    elif playerX >= 736:
+        playerX = 736
+    player(playerX,playerY)
+    enemy(eenemyX,enemyY)
+    #screen.blit(label,(100,100))
+    pygame.display.update()
+    clock.tick(FPS)
