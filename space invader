@@ -116,6 +116,9 @@ while running:
             elif event.key == pygame.K_p:
                 playerX_Change = 0
 
+             
+
+
 
     playerX += playerX_Change 
     if playerX <= 0:
